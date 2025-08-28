@@ -8,9 +8,14 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - echo Building the Docker image...
       - docker build -t html-app:latest .
       - docker tag html-app:latest 861822896748.dkr.ecr.us-east-1.amazonaws.com/docker-cd-html:latest
   post_build:
     commands:
       - echo Build completed on `date`
+      - echo Pushing Docker image to ECR...
       - docker push 861822896748.dkr.ecr.us-east-1.amazonaws.com/docker-cd-html:latest
+artifacts:
+  files: '**/*'
+  discard-paths: yes
